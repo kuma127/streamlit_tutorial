@@ -1,0 +1,28 @@
+<html>
+    <head>
+        <script type="module" crossorigin src="https://cdn.jsdelivr.net/npm/@gradio/lite/dist/lite.js"></script>
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@gradio/lite/dist/lite.css" />
+    </head>
+    <body>
+        <gradio-lite>
+        import gradio as gr
+
+
+        def greet(name, is_morning, temperature):
+            salutation = "Good morning" if is_morning else "Good evening"
+            greeting = f"{salutation} {name}. It is {temperature} degrees today"
+            celsius = (temperature - 32) * 5 / 9
+            return greeting, round(celsius, 2)
+
+
+        demo = gr.Interface(
+            fn=greet,
+            inputs=["text", "checkbox", gr.Slider(0, 100)],
+            outputs=["text", "number"],
+        )
+
+        if __name__ == "__main__":
+            demo.launch()
+        </gradio-lite>
+    </body>
+</html>
